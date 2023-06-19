@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TypeShop.MainPage"
+             xmlns:viewModels="clr-namespace:TypeShop.ViewModel"
+             xmlns:converter="clr-namespace:TypeShop.Converter"
+             Title="TypeShop">
+
+    <ContentPage.Resources>
+        <converter:ProductSelectedToBooleanConverter x:Key="productSelectedToBoolConverter" />
+        <converter:TotalPriceToBooleanConverter x:Key="totalPriceToBoolConverter" />
+        <converter:ProductToBoolConverter x:Key="productToBoolConverter" />
+    </ContentPage.Resources>
+
+    <ContentPage.BindingContext>
+        <viewModels:MainPageViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView VerticalOptions="StartAndExpand">
+        <StackLayout>
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0"
+                      VerticalOptions="Center"
+                      HorizontalOptions="Center">
+                    <Image Source="{Binding SelectedProduct.ImageUrl}"
+                           Aspect="AspectFit"
+                           HeightRequest="120"
+                           WidthRequest="200"
+                           Margin="0,0,10,0"/>
+                </Grid>
+
+                <StackLayout Grid.Column="1"
+                             VerticalOptions="Center">
+                    <Label Text="{Binding SelectedProduct.Name}"
+                           FontSize="12"
+                           FontAttributes="Bold" />
+
+                    <Label Text="{Binding SelectedProduct.Price, StringFormat='₱{0:F2}'}"
+                           FontSize="9"
+                           TextColor="Gray" />
+
+                    <Label Text="{Binding SelectedProduct.Description}"
+                           FontSize="9"
+                           TextColor="Gray" />
+
+                    <StackLayout Orientation="Horizontal"
+                                 Spacing="10"
+                                 Margin="0,10,0,0">
+                        <ImageButton Command="{Binding AddToCartCommand}"
+                                     CommandParameter="{Binding SelectedProduct}"
+                                     IsVisible="{Binding SelectedProduct, Converter={StaticResource productSelectedToBoolConverter}}"
+                                     WidthRequest="30"
+                                     HeightRequest="30">
+                            <ImageButton.Source>
+                                <FileImageSource File="add.png" />
+                            </ImageButton.Source>
+                        </ImageButton>
+
+                        <ImageButton Command="{Binding RemoveToCartCommand}"
+                                     CommandParameter="{Binding SelectedProduct}"
+                                     IsVisible="{Binding CanRemove}"
+                                     WidthRequest="30"
+                                     HeightRequest="30">
+                            <ImageButton.Source>
+                                <FileImageSource File="remove.png" />
+                            </ImageButton.Source>
+                        </ImageButton>
+                    </StackLayout>
+                </StackLayout>
+            </Grid>
+
+
+            <StackLayout>
+                <StackLayout>
+                    <Label Text="Product List"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="#333333"
+                           HorizontalOptions="Center"
+                           Margin="0,10,0,5" />
+                </StackLayout>
+
+                <ListView x:Name="ItemsListView"
+                          ItemsSource="{Binding Products}"
+                          SelectedItem="{Binding SelectedProduct}"
+                          RowHeight="90">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid Padding="10"
+                                      Margin="0,5,0,5"
+                                      HeightRequest="100"
+                                      VerticalOptions="CenterAndExpand">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Source="{Binding ImageUrl}"
+                                           HeightRequest="80"
+                                           WidthRequest="100"
+                                           Aspect="AspectFit"
+                                           VerticalOptions="Center" 
+                                           Margin="0,0,10,0"/>
+
+                                    <StackLayout Grid.Column="1"
+                                                 Spacing="3"
+                                                 VerticalOptions="Center">
+                                        <Label Text="{Binding Name}"
+                                               FontSize="12"
+                                               FontAttributes="Bold"
+                                               TextColor="DarkSlateGray"
+                                               LineBreakMode="TailTruncation" />
+
+                                        <Label Text="{Binding Price, StringFormat='₱{0:F2}'}"
+                                               FontSize="10"
+                                               TextColor="DarkSlateGray"
+                                               HorizontalOptions="Start"
+                                               VerticalOptions="End" />
+                                    </StackLayout>
+
+                                    <ImageButton Command="{Binding BindingContext.AddToCartCommand, Source={x:Reference ItemsListView}}"
+                                                 CommandParameter="{Binding .}"
+                                                 IsVisible="{Binding BindingContext.SelectedProduct, Converter={StaticResource productSelectedToBoolConverter}}"
+                                                 Grid.Column="2"
+                                                 HorizontalOptions="End"
+                                                 WidthRequest="30"
+                                                 HeightRequest="30"
+                                                 Margin="0,0,10,0">
+                                        <ImageButton.Source>
+                                            <FileImageSource File="add.png" />
+                                        </ImageButton.Source>
+                                    </ImageButton>
+                                    
+                                    <ImageButton Command="{Binding BindingContext.RemoveToCartCommand, Source={x:Reference ItemsListView}}"
+                                                 CommandParameter="{Binding .}"
+                                                 IsVisible="{Binding BindingContext.SelectedProduct, Converter={StaticResource productToBoolConverter}}"
+                                                 Grid.Column="3"
+                                                 HorizontalOptions="End"
+                                                 WidthRequest="30"
+                                                 HeightRequest="30">
+                                        <ImageButton.Source>
+                                            <FileImageSource File="remove.png" />
+                                        </ImageButton.Source>
+                                    </ImageButton>
+
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+
+
+            <StackLayout IsVisible="{Binding TotalPrice, Converter={StaticResource totalPriceToBoolConverter}}">
+                <Label Text="Cart"
+                       FontSize="14"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       Margin="0,10,0,5" />
+
+                <ListView ItemsSource="{Binding CartProducts}"
+                          SelectionMode="None"
+                          Margin="10,0,10,0">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Text="{Binding Name}"
+                                           VerticalOptions="Center"
+                                           FontSize="10" />
+
+                                    <Label Text="{Binding Price,StringFormat='₱{0:F2}'}"
+                                           Grid.Column="1"
+                                           VerticalOptions="Center"
+                                           FontSize="10" />
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <StackLayout HorizontalOptions="End">
+                    <Label Text="{Binding SubTotalPrice, StringFormat='Sub Total Price: ₱{0:F2}' }"
+                           HorizontalOptions="Center"
+                           FontSize="10" />
+
+                    <Label x:Name="TotalPriceLabel"
+                           Text="{Binding VatPrice, StringFormat='Vat Price: ₱{0:F2}'}"
+                           HorizontalOptions="Center"
+                           FontSize="10" />
+
+                    <Label Text="{Binding TotalPrice, StringFormat='Total Price: ₱{0:F2}'}"
+                           HorizontalOptions="Center"
+                           FontSize="12"
+                           FontAttributes="Bold" />
+                </StackLayout>
+            </StackLayout>
+
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
