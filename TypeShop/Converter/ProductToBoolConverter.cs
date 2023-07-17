@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -13,9 +14,9 @@ namespace TypeShop.Converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is Product product && parameter is MainPageViewModel viewModel)
+            if (value is ObservableCollection<GroceryCart> cartProducts && parameter is GroceryItem product)
             {
-                return viewModel.CartProducts.Contains(product);
+                return cartProducts.Any(p => p.ItemId == product.ItemId);
             }
 
             return false;
@@ -23,7 +24,7 @@ namespace TypeShop.Converter
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
     }
 }

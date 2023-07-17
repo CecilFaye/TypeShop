@@ -11,6 +11,7 @@ using static Microsoft.Maui.ApplicationModel.Permissions;
 
 namespace TypeShop.ViewModel
 {
+    #region CODE FOR HOMEWORK 1
     public class MainPageViewModel : BasePageViewModel
     {
         private ObservableCollection<Product> _products;
@@ -126,6 +127,6 @@ namespace TypeShop.ViewModel
         {
             CanRemove = CartProducts.Contains(SelectedProduct);
         }
-
     }
+    #endregion
 }

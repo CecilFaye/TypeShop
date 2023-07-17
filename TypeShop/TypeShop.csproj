@@ -49,7 +49,37 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\itembanana.png" />
+	  <None Remove="Resources\Images\itemcarrot.png" />
+	  <None Remove="Resources\Images\itemeggplant.png" />
+	  <None Remove="Resources\Images\itemgarlic.png" />
+	  <None Remove="Resources\Images\itemgrapes.png" />
+	  <None Remove="Resources\Images\itemkiwi.png" />
+	  <None Remove="Resources\Images\itemlemon.png" />
+	  <None Remove="Resources\Images\itemlettuce.png" />
+	  <None Remove="Resources\Images\itemonion.png" />
+	  <None Remove="Resources\Images\itempeach.png" />
+	  <None Remove="Resources\Images\itempineapple.png" />
+	  <None Remove="Resources\Images\itemstrawberry.png" />
+	  <None Remove="Resources\Images\itemtomato.png" />
+	  <None Remove="Resources\Images\itemwatermelon.png" />
+	  <None Remove="Resources\Images\thankyou.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="CheckoutPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="MainPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="ProductsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="ThankyouPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="WelcomePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TypeShop.WelcomePage"
+             xmlns:viewModels="clr-namespace:TypeShop.ViewModel">
+
+    <ContentPage.BindingContext>
+        <viewModels:WelcomeViewModel />
+    </ContentPage.BindingContext>
+
+    <StackLayout VerticalOptions="Center"
+                 HorizontalOptions="Center"
+                 Spacing="20"
+                 Padding="20">
+        <Image Source="{Binding AppLogo}"
+               HeightRequest="150"
+               WidthRequest="150"
+               Aspect="AspectFit" />
+        <Label Text="Welcome to TypeShop"
+               FontSize="22"
+               FontAttributes="Bold"
+               TextColor="#333333"
+               HorizontalTextAlignment="Center" />
+        <StackLayout Margin="0,50,0,0">
+            <Button Text="START SHOPPING NOW!"
+                    Clicked="GoToGroceriesList"
+                    FontSize="16"
+                    TextColor="White"
+                    BackgroundColor="#4CAF50"
+                    CornerRadius="10"
+                    Padding="20"
+                    HorizontalOptions="Center" />
+        </StackLayout>
+    </StackLayout>
+
+</ContentPage>

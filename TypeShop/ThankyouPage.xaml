@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TypeShop.ThankyouPage"
+             xmlns:viewModels="clr-namespace:TypeShop.ViewModel"
+             Title="TypeShop">
+
+    <StackLayout VerticalOptions="CenterAndExpand"
+                 HorizontalOptions="CenterAndExpand"
+                 Spacing="20">
+
+        <Image Source="thankyou.png"
+               HeightRequest="200"
+               WidthRequest="200"
+               Aspect="AspectFit"
+               HorizontalOptions="Center" />
+
+        <Label Text="Cecil Faye Clemente"
+               FontSize="24"
+               TextColor="#333333"
+               HorizontalOptions="Center"
+               VerticalOptions="Center" />
+
+    </StackLayout>
+
+</ContentPage>
